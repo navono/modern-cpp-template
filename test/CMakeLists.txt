@@ -17,7 +17,7 @@ verbose_message("Adding tests under ${CMAKE_PROJECT_NAME}Tests...")
 
 set(test_sources 
   src/tmp_test.cpp
-)
+        src/main.cpp)
 add_executable(${PROJECT_NAME} ${test_sources})
 
 #

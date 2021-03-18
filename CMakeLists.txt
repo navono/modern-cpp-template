@@ -5,7 +5,7 @@ cmake_minimum_required(VERSION 3.15)
 #
 
 project(
-  "Project"
+  "ADemo"
   VERSION 0.1.0 
   LANGUAGES CXX
 )
@@ -44,6 +44,10 @@ endif()
 
 include(cmake/Conan.cmake)
 include(cmake/Vcpkg.cmake)
+include(cmake/StaticAnalyzers.cmake)
+
+include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+conan_basic_setup(TARGETS)
 
 #
 # Create library, setup header and source files
@@ -51,6 +55,8 @@ include(cmake/Vcpkg.cmake)
 
 # Find all headers and implementation files
 include(cmake/SourcesAndHeaders.cmake)
+
+#variable_watch(${PROJECT_NAME}_BUILD_EXECUTABLE)
 
 if(${PROJECT_NAME}_BUILD_EXECUTABLE)
   add_executable(${PROJECT_NAME} ${exe_sources})
@@ -62,7 +68,7 @@ else()
     ${PROJECT_NAME}
     ${headers}
     ${sources}
-  )
+          src/main.cpp)
 endif()
 
 verbose_message("Found the following header files:")
@@ -119,8 +125,8 @@ else()
 	if(${PROJECT_NAME}_BUILD_EXECUTABLE)
 		target_include_directories(
 			${PROJECT_NAME}_LIB
-			PUBLIC 
-				$<INSTALL_INTERFACE:include>    
+			PUBLIC
+				$<INSTALL_INTERFACE:include>
 				$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
 			PRIVATE
 				${CMAKE_CURRENT_SOURCE_DIR}/src
@@ -136,15 +142,14 @@ message(STATUS "Finished setting up include directories.")
 
 # Identify and link with the specific "packages" the project uses
 #find_package(package_name package_version REQUIRED package_type [other_options])
-#target_link_libraries(
-#  ${PROJECT_NAME}
-#  PUBLIC
-#    dependency1 ...
+target_link_libraries(
+  ${PROJECT_NAME}
+  PUBLIC
+        CONAN_PKG::fmt
 #  PRIVATE
-#    dependency2 ...
-#    ${PROJECT_NAME}_PROJECT_OPTIONS        
-#    ${PROJECT_NAME}_PROJECT_WARNINGS        
-#)
+#    ${PROJECT_NAME}_PROJECT_OPTIONS
+#    ${PROJECT_NAME}_PROJECT_WARNINGS
+)
 
 verbose_message("Successfully added all dependencies and linked against them.")
 

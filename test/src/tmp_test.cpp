@@ -1,15 +1,14 @@
-#include "project/tmp.hpp"
+#include "demo/tmp.hpp"
 
-#include <gtest/gtest.h>
+#include <catch2/catch.hpp>
 
-TEST(TmpAddTest, CheckValues)
-{
-  ASSERT_EQ(tmp::add(1, 2), 3);
-  EXPECT_TRUE(true);
-}
+//TEST(TmpAddTest, CheckValues)
+//{
+//  ASSERT_EQ(tmp::add(1, 2), 3);
+//  EXPECT_TRUE(true);
+//}
+//
 
-int main(int argc, char **argv)
-{
-  ::testing::InitGoogleTest(&argc, argv);
-  return RUN_ALL_TESTS();
+TEST_CASE( "add of 1 and 2 is 3 (pass)", "[single-file]" ) {
+  REQUIRE( tmp::add(1, 2) == 3 );
 }
