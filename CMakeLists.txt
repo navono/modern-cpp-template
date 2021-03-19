@@ -46,9 +46,6 @@ include(cmake/Conan.cmake)
 include(cmake/Vcpkg.cmake)
 include(cmake/StaticAnalyzers.cmake)
 
-include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-conan_basic_setup(TARGETS)
-
 #
 # Create library, setup header and source files
 #
