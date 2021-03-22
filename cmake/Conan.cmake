@@ -7,11 +7,18 @@ if(${PROJECT_NAME}_ENABLE_CONAN)
 
   include(${CMAKE_BINARY_DIR}/conan.cmake)
 
+  conan_add_remote(NAME bincrafters
+          URL
+          https://api.bintray.com/conan/bincrafters/public-conan
+          )
+
   conan_cmake_run(
-          CONANFILE
-          ${PROJECT_SOURCE_DIR}/conanfile.txt
+          REQUIRES
+          ${CONAN_EXTRA_REQUIRES}
+          OPTIONS
+          ${CONAN_EXTRA_OPTIONS}
           BASIC_SETUP
-          CMAKE_TARGETS
+          CMAKE_TARGETS # Individual targets to link to
           BUILD
           missing
   )

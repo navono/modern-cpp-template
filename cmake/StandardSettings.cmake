@@ -20,6 +20,10 @@ option(${PROJECT_NAME}_WARNINGS_AS_ERRORS "Treat compiler warnings as errors." O
 option(${PROJECT_NAME}_ENABLE_CONAN "Enable the Conan package manager for this project." ON)
 option(${PROJECT_NAME}_ENABLE_VCPKG "Enable the Vcpkg package manager for this project." OFF)
 
+# Set up some extra Conan dependencies based on our needs before loading Conan
+set(CONAN_EXTRA_REQUIRES fmt/7.0.3)
+set(CONAN_EXTRA_OPTIONS "")
+
 #
 # Unit testing
 #
@@ -44,7 +48,8 @@ option(${PROJECT_NAME}_ENABLE_CPPCHECK "Enable static analysis with Cppcheck." O
 # Code coverage
 #
 
-option(${PROJECT_NAME}_ENABLE_CODE_COVERAGE "Enable code coverage through GCC." OFF)
+option(${PROJECT_NAME}_ENABLE_CODE_COVERAGE "Enable code coverage through GCC." ON)
+message(D ${PROJECT_NAME}_ENABLE_CODE_COVERAGE)
 
 #
 # Doxygen
